@@ -25,7 +25,7 @@ class Bag:
 
     def __str__(self) -> str:
         """
-        Return content of stack in human-readable form
+        Return content of bag in human-readable form
         DO NOT CHANGE THIS METHOD IN ANY WAY
         """
         out = "BAG: " + str(self._da.length()) + " elements. ["
