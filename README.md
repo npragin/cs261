@@ -1,4 +1,4 @@
-# CS 261 Data Structures Assignments
+# CS 261 – Data Structures
 
 This repository contains my assignments for CS 261 - Data Structures at Oregon State University. Each assignment focuses on implementing and understanding fundamental data structures and algorithms.
 
