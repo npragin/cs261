@@ -14,6 +14,7 @@ class StackException(Exception):
     Custom exception to be used by Stack class
     DO NOT CHANGE THIS METHOD IN ANY WAY
     """
+
     pass
 
 
@@ -30,15 +31,15 @@ class Stack:
         Return content of stack in human-readable form
         DO NOT CHANGE THIS METHOD IN ANY WAY
         """
-        out = 'STACK ['
+        out = "STACK ["
         if not self.is_empty():
             node = self._head
             out = out + str(node.value)
             node = node.next
             while node:
-                out = out + ' -> ' + str(node.value)
+                out = out + " -> " + str(node.value)
                 node = node.next
-        return out + ']'
+        return out + "]"
 
     def is_empty(self) -> bool:
         """
@@ -66,8 +67,8 @@ class Stack:
         Adds a new element to the top of the stack
         """
         node = SLNode(value)
-        node.next = self._head #New node points to old head
-        self._head = node #New node is now the head
+        node.next = self._head  # New node points to old head
+        self._head = node  # New node is now the head
 
     def pop(self) -> object:
         """
@@ -75,9 +76,9 @@ class Stack:
         """
         if self._head is None:
             raise StackException
-        
-        val = self._head.value #Store top element's value
-        self._head = self._head.next #Remove top element
+
+        val = self._head.value  # Store top element's value
+        self._head = self._head.next  # Remove top element
         return val
 
     def top(self) -> object:
@@ -87,6 +88,7 @@ class Stack:
         if self._head is None:
             raise StackException
         return self._head.value
+
 
 # ------------------- BASIC TESTING -----------------------------------------
 

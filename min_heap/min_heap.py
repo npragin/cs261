@@ -6,7 +6,7 @@
 # Description: MinHeap Implementation using my own dynamic and static array classes
 
 
-from dynamic_array import *
+from dynamic_array import DynamicArray
 
 
 class MinHeapException(Exception):
@@ -14,6 +14,7 @@ class MinHeapException(Exception):
     Custom exception to be used by MinHeap class
     DO NOT CHANGE THIS CLASS IN ANY WAY
     """
+
     pass
 
 
@@ -46,13 +47,13 @@ class MinHeap:
         idx = self._heap.length()
         self._heap.append(node)
         parentIdx = (idx - 1) // 2
-        
-        while idx > 0 and parentIdx >= 0: #Propogate node up heap until it reaches correct location
+
+        while idx > 0 and parentIdx >= 0:  # Propogate node up heap until it reaches correct location
             parent = self._heap.get_at_index(parentIdx)
 
             if parent < node:
                 break
-            
+
             if idx == self._heap.length():
                 self._heap.append(parent)
             else:
@@ -82,14 +83,14 @@ class MinHeap:
         """
         if self._heap.length() == 0:
             raise MinHeapException()
-        
-        if self._heap.length() == 1: #If length 1, return pop
+
+        if self._heap.length() == 1:  # If length 1, return pop
             return self._heap.pop()
-        
+
         newRoot = self._heap.pop()
         oldRoot = self._heap.get_at_index(0)
-        self._heap.set_at_index(0, newRoot) #Set new root to be last node in heap
-    
+        self._heap.set_at_index(0, newRoot)  # Set new root to be last node in heap
+
         _percolate_down(self._heap, 0)
 
         return oldRoot
@@ -119,20 +120,21 @@ def heapsort(da: DynamicArray) -> None:
     """
     Takes a DynamicArray and sorts it in non-ascending order using Heapsort
     """
-    for i in range(da.length() // 2 - 1, -1, -1): #Heapify
-            _percolate_down(da, i)
+    for i in range(da.length() // 2 - 1, -1, -1):  # Heapify
+        _percolate_down(da, i)
 
     k = da.length() - 1
     while k > 0:
-        #Swap K and min
+        # Swap K and min
         temp = da.get_at_index(k)
         da.set_at_index(k, da.get_at_index(0))
         da.set_at_index(0, temp)
 
-        #Percolate K down, use delimiter so sorted part is not touched
+        # Percolate K down, use delimiter so sorted part is not touched
         _percolate_down(da, 0, k)
 
         k -= 1
+
 
 def _percolate_down(da: DynamicArray, parent: int, delimiter=None) -> None:
     """
@@ -143,15 +145,15 @@ def _percolate_down(da: DynamicArray, parent: int, delimiter=None) -> None:
         rightChildIdx = parent * 2 + 2
         smallest = parent
 
-        if (leftChildIdx < (delimiter or da.length()) and
-            da.get_at_index(leftChildIdx) < da.get_at_index(smallest)): #Find smallest
+        if leftChildIdx < (delimiter or da.length()) and da.get_at_index(leftChildIdx) < da.get_at_index(
+            smallest
+        ):  # Find smallest
             smallest = leftChildIdx
 
-        if (rightChildIdx < (delimiter or da.length()) and
-            da.get_at_index(rightChildIdx) < da.get_at_index(smallest)):
+        if rightChildIdx < (delimiter or da.length()) and da.get_at_index(rightChildIdx) < da.get_at_index(smallest):
             smallest = rightChildIdx
 
-        if smallest != parent:  #If smallest found, switch around and update indexes
+        if smallest != parent:  # If smallest found, switch around and update indexes
             temp = da.get_at_index(smallest)
             da.set_at_index(smallest, da.get_at_index(parent))
             da.set_at_index(parent, temp)
@@ -159,14 +161,14 @@ def _percolate_down(da: DynamicArray, parent: int, delimiter=None) -> None:
                 parent = leftChildIdx
             else:
                 parent = rightChildIdx
-        else:   #If no smallest found, stop percolating
+        else:  # If no smallest found, stop percolating
             break
 
 
 # ------------------- BASIC TESTING -----------------------------------------
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     print("\nPDF - add example 1")
     print("-------------------")
@@ -178,9 +180,9 @@ if __name__ == '__main__':
 
     print("\nPDF - add example 2")
     print("-------------------")
-    h = MinHeap(['fish', 'bird'])
+    h = MinHeap(["fish", "bird"])
     print(h)
-    for value in ['monkey', 'zebra', 'elephant', 'horse', 'bear']:
+    for value in ["monkey", "zebra", "elephant", "horse", "bear"]:
         h.add(value)
         print(h)
 
@@ -196,7 +198,7 @@ if __name__ == '__main__':
 
     print("\nPDF - get_min example 1")
     print("-----------------------")
-    h = MinHeap(['fish', 'bird'])
+    h = MinHeap(["fish", "bird"])
     print(h)
     print(h.get_min(), h.get_min())
 
@@ -204,13 +206,13 @@ if __name__ == '__main__':
     print("--------------------------")
     h = MinHeap([1, 10, 2, 9, 3, 8, 4, 7, 5, 6])
     while not h.is_empty() and h.is_empty() is not None:
-        print(h, end=' ')
+        print(h, end=" ")
         print(h.remove_min())
 
     print("\nPDF - build_heap example 1")
     print("--------------------------")
     da = DynamicArray([100, 20, 6, 200, 90, 150, 300])
-    h = MinHeap(['zebra', 'apple'])
+    h = MinHeap(["zebra", "apple"])
     print(h)
     h.build_heap(da)
     print(h)
@@ -237,7 +239,7 @@ if __name__ == '__main__':
 
     print("\nPDF - clear example 1")
     print("---------------------")
-    h = MinHeap(['monkey', 'zebra', 'elephant', 'horse', 'bear'])
+    h = MinHeap(["monkey", "zebra", "elephant", "horse", "bear"])
     print(h)
     print(h.clear())
     print(h)
@@ -251,7 +253,7 @@ if __name__ == '__main__':
 
     print("\nPDF - heapsort example 2")
     print("------------------------")
-    da = DynamicArray(['monkey', 'zebra', 'elephant', 'horse', 'bear'])
+    da = DynamicArray(["monkey", "zebra", "elephant", "horse", "bear"])
     print(f"Before: {da}")
     heapsort(da)
     print(f"After:  {da}")

@@ -18,6 +18,7 @@ class QueueException(Exception):
     Custom exception to be used by Queue class.
     DO NOT CHANGE THIS METHOD IN ANY WAY
     """
+
     pass
 
 
@@ -43,13 +44,13 @@ class Queue:
 
         front_index = self._front
         for _ in range(size - 1):
-            out += str(self._sa[front_index]) + ', '
+            out += str(self._sa[front_index]) + ", "
             front_index = self._increment(front_index)
 
         if size > 0:
             out += str(self._sa[front_index])
 
-        return out + ']'
+        return out + "]"
 
     def is_empty(self) -> bool:
         """
@@ -91,12 +92,12 @@ class Queue:
         """
         Adds a new value to the end of the queue
         """
-        if self._sa.length() == self._current_size: #Resize if needed
+        if self._sa.length() == self._current_size:  # Resize if needed
             self._double_queue()
 
-        self._sa.set(self._back, value) #Add value to back
-        self._back = self._increment(self._back) #Increment back
-        self._current_size += 1 #Increment size
+        self._sa.set(self._back, value)  # Add value to back
+        self._back = self._increment(self._back)  # Increment back
+        self._current_size += 1  # Increment size
 
     def dequeue(self) -> object:
         """
@@ -104,12 +105,11 @@ class Queue:
         """
         if self._current_size == 0:
             raise QueueException
-        
-        val = self._sa.get(self._front) #Store value at front
-        self._front = self._increment(self._front) #Increment front
-        self._current_size -= 1 #Decrement size
+
+        val = self._sa.get(self._front)  # Store value at front
+        self._front = self._increment(self._front)  # Increment front
+        self._current_size -= 1  # Decrement size
         return val
-        
 
     def front(self) -> object:
         """
@@ -129,18 +129,18 @@ class Queue:
         newArr = StaticArray(self._sa.length() * 2)
         idx = self._front
         newIdx = 0
-        while idx < self._current_size: #Iterate from start of queue to end of the array
+        while idx < self._current_size:  # Iterate from start of queue to end of the array
             newArr.set(newIdx, self._sa.get(idx))
             idx += 1
             newIdx += 1
 
         idx = 0
-        while idx < self._back and newIdx < self._current_size: #Iterate through the rest 
+        while idx < self._back and newIdx < self._current_size:  # Iterate through the rest
             newArr.set(newIdx, self._sa.get(idx))
             idx += 1
             newIdx += 1
 
-        self._front = 0 #Reset front and back
+        self._front = 0  # Reset front and back
         self._back = self._current_size
         self._sa = newArr
 
@@ -175,7 +175,7 @@ if __name__ == "__main__":
     print("\n# front()")
     q = Queue()
     print(q)
-    for value in ['A', 'B', 'C', 'D']:
+    for value in ["A", "B", "C", "D"]:
         try:
             print(q.front())
         except Exception as e:
@@ -185,8 +185,7 @@ if __name__ == "__main__":
 
     print("\n# Circular buffer tests: #\n")
 
-    def action_and_print(
-            header: str, action: callable, values: [], queue: Queue) -> None:
+    def action_and_print(header: str, action: callable, values: [], queue: Queue) -> None:
         """
         Print header, perform action,
         then print queue and its underlying storage.
@@ -228,6 +227,5 @@ if __name__ == "__main__":
 
     action_and_print("# Enqueue: 14, 16, 18", q.enqueue, [14, 16, 18], q)
     action_and_print("# Enqueue: 20", q.enqueue, [20], q)
-    action_and_print("# Enqueue: 22, 24, 26, 28", q.enqueue,
-                     [22, 24, 26, 28], q)
+    action_and_print("# Enqueue: 22, 24, 26, 28", q.enqueue, [22, 24, 26, 28], q)
     action_and_print("# Enqueue: 30", q.enqueue, [30], q)

@@ -10,6 +10,7 @@ class StaticArrayException(Exception):
     Custom exception for Static Array class.
     Any changes to this class are forbidden.
     """
+
     pass
 
 
@@ -34,7 +35,7 @@ class StaticArray:
         raise StaticArray Exception.
         """
         if size < 1:
-            raise StaticArrayException('Array size must be a positive integer')
+            raise StaticArrayException("Array size must be a positive integer")
 
         # The underscore denotes this as a private variable and
         # private variables should not be accessed directly.
@@ -70,7 +71,7 @@ class StaticArray:
         Invalid index raises StaticArrayException.
         """
         if index < 0 or index >= self.length():
-            raise StaticArrayException('Index out of bounds')
+            raise StaticArrayException("Index out of bounds")
         return self._data[index]
 
     def set(self, index: int, value) -> None:
@@ -79,7 +80,7 @@ class StaticArray:
         Invalid index raises StaticArrayException.
         """
         if index < 0 or index >= self.length():
-            raise StaticArrayException('Index out of bounds')
+            raise StaticArrayException("Index out of bounds")
         self._data[index] = value
 
     def __getitem__(self, index: int):
@@ -106,8 +107,8 @@ if __name__ == "__main__":
     arr = StaticArray()
 
     # These two statements are equivalent
-    arr.set(0, 'hello')
-    arr[0] = 'hello'
+    arr.set(0, "hello")
+    arr[0] = "hello"
 
     # These two statements are equivalent
     print(arr.get(0))

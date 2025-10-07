@@ -6,7 +6,7 @@
 # Description: An implementation of a 'bag' data structure using my own dynamic array
 
 
-from dynamic_array import *
+from dynamic_array import DynamicArray, DynamicArrayException
 
 
 class Bag:
@@ -29,9 +29,8 @@ class Bag:
         DO NOT CHANGE THIS METHOD IN ANY WAY
         """
         out = "BAG: " + str(self._da.length()) + " elements. ["
-        out += ', '.join([str(self._da.get_at_index(_))
-                          for _ in range(self._da.length())])
-        return out + ']'
+        out += ", ".join([str(self._da.get_at_index(_)) for _ in range(self._da.length())])
+        return out + "]"
 
     def size(self) -> int:
         """
@@ -52,22 +51,22 @@ class Bag:
         """
         Removes matching element from bag, returning True if removed, False otherwise
         """
-        for i in range(self._da.length()): #Iterate through array, find match, delete
+        for i in range(self._da.length()):  # Iterate through array, find match, delete
             if self._da.get_at_index(i) == value:
                 self._da.remove_at_index(i)
                 return True
-        
-        return False #If no match found
+
+        return False  # If no match found
 
     def count(self, value: object) -> int:
         """
         Returns the number of elements in the bag that match the provided value
         """
         count = 0
-        for i in range(self._da.length()): #Iterate through DA
+        for i in range(self._da.length()):  # Iterate through DA
             if self._da.get_at_index(i) == value:
-                count += 1 #Increment count when match found
-        
+                count += 1  # Increment count when match found
+
         return count
 
     def clear(self) -> None:
@@ -80,14 +79,14 @@ class Bag:
         """
         Compares two bags for equality, returning true if yes, false if no.
         """
-        if self._da.length() != second_bag._da.length(): #If size isn't equal, not equal
+        if self._da.length() != second_bag._da.length():  # If size isn't equal, not equal
             return False
-        
-        for i in range(self._da.length()): #For each element
+
+        for i in range(self._da.length()):  # For each element
             value = self._da.get_at_index(i)
-            if self.count(value) != second_bag.count(value): #Count element must be equal
+            if self.count(value) != second_bag.count(value):  # Count element must be equal
                 return False
-            
+
         return True
 
     def __iter__(self):
@@ -105,7 +104,7 @@ class Bag:
             val = self._da.get_at_index(self._index)
         except DynamicArrayException:
             raise StopIteration
-        
+
         self._index += 1
         return val
 

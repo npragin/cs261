@@ -9,7 +9,7 @@
 import random
 
 from bst import BST, BSTNode
-from queue_and_stack import Queue, Stack
+from queue_and_stack import Stack
 
 
 class AVLNode(BSTNode):

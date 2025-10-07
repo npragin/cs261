@@ -7,10 +7,13 @@
 
 
 import random
+
 from queue_and_stack import Queue, Stack
+
 
 class BSTException(BaseException):
     pass
+
 
 class BSTNode:
     """
@@ -23,16 +26,17 @@ class BSTNode:
         Initialize a new BST node
         DO NOT CHANGE THIS METHOD IN ANY WAY
         """
-        self.value = value   # to store node's data
-        self.left = None     # pointer to root of left subtree
-        self.right = None    # pointer to root of right subtree
+        self.value = value  # to store node's data
+        self.left = None  # pointer to root of left subtree
+        self.right = None  # pointer to root of right subtree
 
     def __str__(self) -> str:
         """
         Override string method
         DO NOT CHANGE THIS METHOD IN ANY WAY
         """
-        return 'BST Node: {}'.format(self.value)
+        return "BST Node: {}".format(self.value)
+
 
 class BST:
     """
@@ -117,9 +121,9 @@ class BST:
         if self.get_root():
             self._print_subtree(self.get_root())
         else:
-            print('(empty tree)')
+            print("(empty tree)")
 
-    def _print_subtree(self, node, prefix: str = '', branch: str = ''):
+    def _print_subtree(self, node, prefix: str = "", branch: str = ""):
         """
         Recursively prints the subtree rooted at this node.
 
@@ -130,10 +134,10 @@ class BST:
         """
 
         def add_junction(string):
-            if len(string) < 2 or branch == '':
+            if len(string) < 2 or branch == "":
                 return string
-            junction = '|' if string[-2] == '|' else '`'
-            return string[:-2] + junction + '-'
+            junction = "|" if string[-2] == "|" else "`"
+            return string[:-2] + junction + "-"
 
         if not node:
             print(add_junction(prefix) + branch + "None")
@@ -144,12 +148,12 @@ class BST:
             return
 
         if node.left or node.right:
-            postfix = ' (root)' if branch == '' else ''
+            postfix = " (root)" if branch == "" else ""
             print(add_junction(prefix) + branch + str(node.value) + postfix)
-            self._print_subtree(node.right, prefix + '| ', 'R: ')
-            self._print_subtree(node.left, prefix + '  ', 'L: ')
+            self._print_subtree(node.right, prefix + "| ", "R: ")
+            self._print_subtree(node.left, prefix + "  ", "L: ")
         else:
-            print(add_junction(prefix) + branch + str(node.value) + ' (leaf)')
+            print(add_junction(prefix) + branch + str(node.value) + " (leaf)")
 
     # ------------------------------------------------------------------ #
 
@@ -158,14 +162,14 @@ class BST:
         Adds a new value to the tree
         """
         itr = self._root
-        
-        if itr is None: #If no nodes exist, make root
+
+        if itr is None:  # If no nodes exist, make root
             self._root = BSTNode(value)
             return
 
-        while itr: #Iterate through BST
-            if value < itr.value: #Check which direction to go down the tree
-                if itr.left is None: #If there is no node in direction, add one
+        while itr:  # Iterate through BST
+            if value < itr.value:  # Check which direction to go down the tree
+                if itr.left is None:  # If there is no node in direction, add one
                     itr.left = BSTNode(value)
                     return
                 itr = itr.left
@@ -174,32 +178,32 @@ class BST:
                     itr.right = BSTNode(value)
                     return
                 itr = itr.right
-            
+
     def remove(self, value: object) -> bool:
         """
         Removes a value from the tree. Returns True if the value is removed; else, False
         """
         parent = None
         itr = self._root
-        
-        while itr is not None: #Iterate through BST until node is found or set itr to None
+
+        while itr is not None:  # Iterate through BST until node is found or set itr to None
             if value == itr.value:
                 break
             elif value < itr.value:
                 parent = itr
                 itr = itr.left
-            else: 
+            else:
                 parent = itr
                 itr = itr.right
-        if itr is None: #If value not found: false, else: call the proper removal helper
+        if itr is None:  # If value not found: false, else: call the proper removal helper
             return False
         elif itr.left and itr.right:
             self._remove_two_subtrees(parent, itr)
         elif itr.left or itr.right:
             self._remove_one_subtree(parent, itr)
         else:
-            self._remove_no_subtrees(parent, itr)          
-  
+            self._remove_no_subtrees(parent, itr)
+
         return True
 
     def _remove_no_subtrees(self, remove_parent: BSTNode, remove_node: BSTNode) -> None:
@@ -220,7 +224,7 @@ class BST:
         Remove node that has a left or right subtree (only)
         """
         if remove_parent is None:
-            self._root = remove_node.left or remove_node.right #Returns non-None
+            self._root = remove_node.left or remove_node.right  # Returns non-None
         elif remove_parent.left is remove_node:
             remove_parent.left = remove_node.left or remove_node.right
         elif remove_parent.right is remove_node:
@@ -230,14 +234,14 @@ class BST:
 
     def _remove_two_subtrees(self, remove_parent: BSTNode, remove_node: BSTNode) -> None:
         """
-        Remove node that has two subtrees        
+        Remove node that has two subtrees
         """
         parent = remove_node
-        itr = remove_node.right #Access right subtree of remove_node
-        while itr.left: #Find left-most node in right subtree
+        itr = remove_node.right  # Access right subtree of remove_node
+        while itr.left:  # Find left-most node in right subtree
             parent = itr
             itr = itr.left
-        
+
         remove_node.value = itr.value
         if parent.left is itr:
             parent.left = itr.right
@@ -264,7 +268,7 @@ class BST:
         q = Queue()
         self.inorder_traversal_rec(self._root, q)
         return q
-    
+
     def inorder_traversal_rec(self, node: BSTNode, q: Queue):
         if node is None:
             return
@@ -278,7 +282,7 @@ class BST:
         """
         if self._root is None:
             return None
-        
+
         itr = self._root
         while itr.left:
             itr = itr.left
@@ -290,7 +294,7 @@ class BST:
         """
         if self._root is None:
             return None
-        
+
         itr = self._root
         while itr.right:
             itr = itr.right
@@ -307,10 +311,11 @@ class BST:
         Removes all of the nodes from the tre
         """
         self._root = None
-    
+
+
 # ------------------- BASIC TESTING -----------------------------------------
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     print("\nPDF - method add() example 1")
     print("----------------------------")
@@ -337,13 +342,13 @@ if __name__ == '__main__':
         (range(0, 31, 3)),
         (range(0, 34, 3)),
         (range(10, -10, -2)),
-        ('A', 'B', 'C', 'D', 'E'),
+        ("A", "B", "C", "D", "E"),
         (1, 1, 1, 1),
     )
     for case in test_cases:
         tree = BST(case)
-        print('INPUT  :', case)
-        print('RESULT :', tree)
+        print("INPUT  :", case)
+        print("RESULT :", tree)
 
     print("\nPDF - method add() example 3")
     print("----------------------------")
@@ -354,7 +359,7 @@ if __name__ == '__main__':
             tree.add(value)
         if not tree.is_valid_bst():
             raise Exception("PROBLEM WITH ADD OPERATION")
-    print('add() stress test finished')
+    print("add() stress test finished")
 
     print("\nPDF - method remove() example 1")
     print("-------------------------------")
@@ -369,9 +374,9 @@ if __name__ == '__main__':
     )
     for case, del_value in test_cases:
         tree = BST(case)
-        print('INPUT  :', tree, "DEL:", del_value)
+        print("INPUT  :", tree, "DEL:", del_value)
         tree.remove(del_value)
-        print('RESULT :', tree)
+        print("RESULT :", tree)
 
     print("\nPDF - method remove() example 2")
     print("-------------------------------")
@@ -383,21 +388,21 @@ if __name__ == '__main__':
     )
     for case, del_value in test_cases:
         tree = BST(case)
-        print('INPUT  :', tree, "DEL:", del_value)
+        print("INPUT  :", tree, "DEL:", del_value)
         tree.print_tree()
         tree.remove(del_value)
-        print('RESULT :', tree)
+        print("RESULT :", tree)
         tree.print_tree()
-        print('')
+        print("")
 
     print("\nPDF - method remove() example 3")
     print("-------------------------------")
     case = range(-9, 16, 2)
     tree = BST(case)
     for del_value in case:
-        print('INPUT  :', tree, del_value)
+        print("INPUT  :", tree, del_value)
         tree.remove(del_value)
-        print('RESULT :', tree)
+        print("RESULT :", tree)
 
     print("\nPDF - method remove() example 4")
     print("-------------------------------")
@@ -405,11 +410,11 @@ if __name__ == '__main__':
     tree = BST(case)
     for _ in case[:-2]:
         root_value = tree.get_root().value
-        print('INPUT  :', tree, root_value)
+        print("INPUT  :", tree, root_value)
         tree.remove(root_value)
         if not tree.is_valid_bst():
             raise Exception("PROBLEM WITH REMOVE OPERATION")
-        print('RESULT :', tree)
+        print("RESULT :", tree)
 
     print("\nPDF - method contains() example 1")
     print("---------------------------------")

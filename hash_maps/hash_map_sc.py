@@ -10,9 +10,7 @@ from a6_include import DynamicArray, LinkedList, hash_function_1, hash_function_
 
 
 class HashMap:
-    def __init__(
-        self, capacity: int = 11, function: callable = hash_function_1
-    ) -> None:
+    def __init__(self, capacity: int = 11, function: callable = hash_function_1) -> None:
         """
         Initialize new HashMap that uses
         separate chaining for collision resolution
@@ -111,9 +109,7 @@ class HashMap:
         """
         if new_capacity < 1:  # Input handling
             return
-        elif not self._is_prime(
-            new_capacity
-        ):  # New capacity must be prime, update if not
+        elif not self._is_prime(new_capacity):  # New capacity must be prime, update if not
             new_capacity = self._next_prime(new_capacity + 1)
 
         while new_capacity < self._size:
@@ -125,9 +121,7 @@ class HashMap:
 
         for i in range(self._capacity):  # For each bucket
             for node in self._buckets.get_at_index(i):  # For each node
-                newHash = (
-                    self._hash_function(node.key) % new_capacity
-                )  # Rehash and place
+                newHash = self._hash_function(node.key) % new_capacity  # Rehash and place
                 newMap.get_at_index(newHash).insert(node.key, node.value)
 
         self._capacity = new_capacity
@@ -207,9 +201,7 @@ def find_mode(da: DynamicArray) -> tuple[DynamicArray, int]:
     map = HashMap()
     for i in range(da.length()):
         k = da.get_at_index(i)
-        map.put(
-            k, (map.get(k) or 0) + 1
-        )  # If exists, add 1 to freq; else, set freq to 1
+        map.put(k, (map.get(k) or 0) + 1)  # If exists, add 1 to freq; else, set freq to 1
 
     modes = DynamicArray()
     freq = 0
@@ -283,9 +275,7 @@ if __name__ == "__main__":
             result &= m.contains_key(str(key))
             # NOT inserted keys must be absent
             result &= not m.contains_key(str(key + 1))
-        print(
-            capacity, result, m.get_size(), m.get_capacity(), round(m.table_load(), 2)
-        )
+        print(capacity, result, m.get_size(), m.get_capacity(), round(m.table_load(), 2))
 
     print("\nPDF - table_load example 1")
     print("--------------------------")

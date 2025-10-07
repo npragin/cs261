@@ -14,6 +14,7 @@ class DynamicArrayException(Exception):
     Custom exception class to be used by Dynamic Array
     DO NOT CHANGE THIS CLASS IN ANY WAY
     """
+
     pass
 
 
@@ -39,9 +40,9 @@ class DynamicArray:
         DO NOT CHANGE THIS METHOD IN ANY WAY
         """
         out = "DYN_ARR Size/Cap: "
-        out += str(self._size) + "/" + str(self._capacity) + ' ['
-        out += ', '.join([str(self._data[_]) for _ in range(self._size)])
-        return out + ']'
+        out += str(self._size) + "/" + str(self._capacity) + " ["
+        out += ", ".join([str(self._data[_]) for _ in range(self._size)])
+        return out + "]"
 
     def __iter__(self):
         """
@@ -135,25 +136,25 @@ class DynamicArray:
         """
         Resizes the capacity of DA to provided new_capacity
         """
-        if new_capacity < 1 or new_capacity < self._size: #Validate new_capacity
+        if new_capacity < 1 or new_capacity < self._size:  # Validate new_capacity
             return
-        
-        self._capacity = new_capacity #Change capacity
+
+        self._capacity = new_capacity  # Change capacity
         newData = StaticArray(self._capacity)
 
-        for i in range(self._size): #Copy old data to new data array
+        for i in range(self._size):  # Copy old data to new data array
             newData.set(i, self._data.get(i))
 
-        self._data = newData #Save new data array
+        self._data = newData  # Save new data array
 
     def append(self, value: object) -> None:
         """
         Appends a given value to the end of the DA
         """
-        if self._size == self._capacity: #Resize if DA is at capacity
+        if self._size == self._capacity:  # Resize if DA is at capacity
             self.resize(self._capacity * 2)
 
-        self._data.set(self._size, value) #Add value to end of DA
+        self._data.set(self._size, value)  # Add value to end of DA
 
         self._size += 1
 
@@ -161,16 +162,16 @@ class DynamicArray:
         """
         Inserts a given value at a specified index within the DA
         """
-        if index < 0 or index > self._size: #Validate index
+        if index < 0 or index > self._size:  # Validate index
             raise DynamicArrayException
-        
-        if self._size == self._capacity: #Resize if DA is at capacity
+
+        if self._size == self._capacity:  # Resize if DA is at capacity
             self.resize(self._capacity * 2)
 
-        for i in range(self._size, index, -1): #Move data from index to end over one
+        for i in range(self._size, index, -1):  # Move data from index to end over one
             self._data.set(i, self._data.get(i - 1))
 
-        self._data.set(index, value) #Insert element at index
+        self._data.set(index, value)  # Insert element at index
 
         self._size += 1
 
@@ -178,14 +179,14 @@ class DynamicArray:
         """
         Inserts the value at a specified index within the DA
         """
-        if index < 0 or index > self._size - 1: #Validate index
+        if index < 0 or index > self._size - 1:  # Validate index
             raise DynamicArrayException
-        
-        #Resize DA if size is too small for current capacity
-        if self._capacity > 10 and self._size < self._capacity / 4: 
+
+        # Resize DA if size is too small for current capacity
+        if self._capacity > 10 and self._size < self._capacity / 4:
             self.resize(max(self._size * 2, 10))
-        
-        for i in range(index, self._size - 1): #Moves everything to right of index 1 left
+
+        for i in range(index, self._size - 1):  # Moves everything to right of index 1 left
             self._data.set(i, self._data.get(i + 1))
 
         self._size -= 1
@@ -193,7 +194,7 @@ class DynamicArray:
     def pop(self):
         if self._size < 1:
             raise DynamicArrayException
-        
+
         value = self._data.get(self._size - 1)
         self._size -= 1
         return value
@@ -202,32 +203,34 @@ class DynamicArray:
         """
         Returns new DA containing elements [start_index, start_index + size)
         """
-        if (start_index < 0 or #Input validation
-            start_index >= self._size or
-            size < 0 or
-            start_index + size > self._size):
+        if (
+            start_index < 0  # Input validation
+            or start_index >= self._size
+            or size < 0
+            or start_index + size > self._size
+        ):
             raise DynamicArrayException
-        
+
         sliced = DynamicArray()
-        for i in range(start_index, start_index + size): #Append values to sliced array
+        for i in range(start_index, start_index + size):  # Append values to sliced array
             sliced.append(self._data.get(i))
-        
+
         return sliced
 
     def merge(self, second_da: "DynamicArray") -> None:
         """
         Appends second_da to DA in the same order it appears
         """
-        for val in second_da: #Append each element in order
-            self.append(val) #Handles _size adjustment
+        for val in second_da:  # Append each element in order
+            self.append(val)  # Handles _size adjustment
 
     def map(self, map_func) -> "DynamicArray":
         """
         Creates a new DA by applying a map_func to each value of the original DA
         """
         mapped = DynamicArray()
-        for i in range(self._size): #Iterate through DA
-            mapped.append(map_func(self._data.get(i))) #Use map_func and append to mapped
+        for i in range(self._size):  # Iterate through DA
+            mapped.append(map_func(self._data.get(i)))  # Use map_func and append to mapped
 
         return mapped
 
@@ -236,10 +239,10 @@ class DynamicArray:
         Creates a new DA using original DA elements where filter_func returns True
         """
         filtered = DynamicArray()
-        for i in range(self._size): #Iterate through array
-            if filter_func(self._data.get(i)): #If filter_func returns true for i-th val
-                filtered.append(self._data.get(i)) #Append i-th value to new DA
-        
+        for i in range(self._size):  # Iterate through array
+            if filter_func(self._data.get(i)):  # If filter_func returns true for i-th val
+                filtered.append(self._data.get(i))  # Append i-th value to new DA
+
         return filtered
 
     def reduce(self, reduce_func, initializer=None) -> object:
@@ -251,8 +254,8 @@ class DynamicArray:
         else:
             ans = self._data.get(0) if self._size > 0 else None
 
-        for i in range(1 if initializer is None else 0, self._size): #Iterate through DA
-             #Apply reduce_func to rolling value and DA value
+        for i in range(1 if initializer is None else 0, self._size):  # Iterate through DA
+            # Apply reduce_func to rolling value and DA value
             ans = reduce_func(ans, self._data.get(i))
 
         return ans
@@ -267,21 +270,21 @@ def find_mode(arr: DynamicArray) -> tuple[DynamicArray, int]:
 
     for i in range(1, arr.length()):
         if arr.get_at_index(i - 1) == arr.get_at_index(i):
-            count += 1 #If values match, increment count
+            count += 1  # If values match, increment count
         else:
-            if count > maxCount: #If new mode, reset modes, increase maxCount
+            if count > maxCount:  # If new mode, reset modes, increase maxCount
                 maxCount = count
                 modes = DynamicArray()
                 modes.append(arr.get_at_index(i - 1))
-            elif count == maxCount: #If another mode, add mode to modes
+            elif count == maxCount:  # If another mode, add mode to modes
                 modes.append(arr.get_at_index(i - 1))
             count = 1
 
-    if count > maxCount: #Do this again for the last value
+    if count > maxCount:  # Do this again for the last value
         maxCount = count
         modes = DynamicArray()
         modes.append(arr.get_at_index(arr.length() - 1))
-    elif count == maxCount: #If another mode, add mode to modes
+    elif count == maxCount:  # If another mode, add mode to modes
         modes.append(arr.get_at_index(arr.length() - 1))
 
     return (modes, maxCount)
@@ -364,7 +367,7 @@ if __name__ == "__main__":
         index, value = i - 4, i * 10
         try:
             da.insert_at_index(index, value)
-        except Exception as e:
+        except Exception:
             print("Cannot insert value", value, "at index", index)
     print(da)
 
@@ -433,7 +436,7 @@ if __name__ == "__main__":
         print("Slice", i, "/", cnt, end="")
         try:
             print(" --- OK: ", da.slice(i, cnt))
-        except:
+        except Exception:
             print(" --- exception occurred.")
 
     print("\n# merge example 1")
@@ -457,26 +460,21 @@ if __name__ == "__main__":
     print("\n# map example 1")
     da = DynamicArray([1, 5, 10, 15, 20, 25])
     print(da)
-    print(da.map(lambda x: x ** 2))
+    print(da.map(lambda x: x**2))
 
     print("\n# map example 2")
-
 
     def double(value):
         return value * 2
 
-
     def square(value):
-        return value ** 2
-
+        return value**2
 
     def cube(value):
-        return value ** 3
-
+        return value**3
 
     def plus_one(value):
         return value + 1
-
 
     da = DynamicArray([plus_one, double, square, cube])
     for value in [1, 10, 20]:
@@ -484,10 +482,8 @@ if __name__ == "__main__":
 
     print("\n# filter example 1")
 
-
     def filter_a(e):
         return e > 10
-
 
     da = DynamicArray([1, 5, 10, 15, 20, 25])
     print(da)
@@ -497,10 +493,8 @@ if __name__ == "__main__":
 
     print("\n# filter example 2")
 
-
     def is_long_word(word, length):
         return len(word) > length
-
 
     da = DynamicArray("This is a sentence with some long words".split())
     print(da)
@@ -511,24 +505,37 @@ if __name__ == "__main__":
     values = [100, 5, 10, 15, 20, 25]
     da = DynamicArray(values)
     print(da)
-    print(da.reduce(lambda x, y: (x // 5 + y ** 2)))
-    print(da.reduce(lambda x, y: (x + y ** 2), -1))
+    print(da.reduce(lambda x, y: (x // 5 + y**2)))
+    print(da.reduce(lambda x, y: (x + y**2), -1))
 
     print("\n# reduce example 2")
     da = DynamicArray([100])
-    print(da.reduce(lambda x, y: x + y ** 2))
-    print(da.reduce(lambda x, y: x + y ** 2, -1))
+    print(da.reduce(lambda x, y: x + y**2))
+    print(da.reduce(lambda x, y: x + y**2, -1))
     da.remove_at_index(0)
-    print(da.reduce(lambda x, y: x + y ** 2))
-    print(da.reduce(lambda x, y: x + y ** 2, -1))
+    print(da.reduce(lambda x, y: x + y**2))
+    print(da.reduce(lambda x, y: x + y**2, -1))
 
     print("\n# find_mode - example 1")
     test_cases = (
         [1, 1, 2, 3, 3, 4],
         [1, 2, 3, 4, 5],
-        ["Apple", "Banana", "Banana", "Carrot", "Carrot",
-         "Date", "Date", "Date", "Eggplant", "Eggplant", "Eggplant",
-         "Fig", "Fig", "Grape"]
+        [
+            "Apple",
+            "Banana",
+            "Banana",
+            "Carrot",
+            "Carrot",
+            "Date",
+            "Date",
+            "Date",
+            "Eggplant",
+            "Eggplant",
+            "Eggplant",
+            "Fig",
+            "Fig",
+            "Grape",
+        ],
     )
 
     for case in test_cases:

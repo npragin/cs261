@@ -6,7 +6,7 @@
 # Description: Stack implemented with a dynamic array
 
 
-from dynamic_array import *
+from dynamic_array import DynamicArray
 
 
 class StackException(Exception):
@@ -14,6 +14,7 @@ class StackException(Exception):
     Custom exception to be used by Stack class
     DO NOT CHANGE THIS METHOD IN ANY WAY
     """
+
     pass
 
 
@@ -31,8 +32,8 @@ class Stack:
         DO NOT CHANGE THIS METHOD IN ANY WAY
         """
         out = "STACK: " + str(self._da.length()) + " elements. ["
-        out += ', '.join([str(self._da[i]) for i in range(self._da.length())])
-        return out + ']'
+        out += ", ".join([str(self._da[i]) for i in range(self._da.length())])
+        return out + "]"
 
     def is_empty(self) -> bool:
         """
@@ -62,9 +63,9 @@ class Stack:
         """
         if self.is_empty():
             raise StackException
-        
-        val = self._da.get_at_index(self._da.length() - 1) #Store last value
-        self._da.remove_at_index(self._da.length() - 1) #Remove last value
+
+        val = self._da.get_at_index(self._da.length() - 1)  # Store last value
+        self._da.remove_at_index(self._da.length() - 1)  # Remove last value
         return val
 
     def top(self) -> object:
@@ -72,7 +73,7 @@ class Stack:
         Returns the value of the top element of the stack without removing it
         """
         if self.is_empty():
-            raise StackException 
+            raise StackException
         return self._da.get_at_index(self._da.length() - 1)
 
 

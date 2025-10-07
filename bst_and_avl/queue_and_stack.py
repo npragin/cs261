@@ -6,6 +6,7 @@ class Queue:
     DO NOT CHANGE THIS CLASS IN ANY WAY
     YOU ARE ALLOWED TO CREATE AND USE OBJECTS OF THIS CLASS IN YOUR SOLUTION
     """
+
     def __init__(self):
         """Initialize empty queue based on Python list."""
         self._data = []
@@ -36,6 +37,7 @@ class Stack:
     DO NOT CHANGE THIS CLASS IN ANY WAY
     YOU ARE ALLOWED TO CREATE AND USE OBJECTS OF THIS CLASS IN YOUR SOLUTION
     """
+
     def __init__(self):
         """Initialize empty stack based on Python list."""
         self._data = []

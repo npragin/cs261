@@ -14,6 +14,7 @@ class QueueException(Exception):
     Custom exception to be used by Queue class
     DO NOT CHANGE THIS METHOD IN ANY WAY
     """
+
     pass
 
 
@@ -31,15 +32,15 @@ class Queue:
         Return content of queue in human-readable form
         DO NOT CHANGE THIS METHOD IN ANY WAY
         """
-        out = 'QUEUE ['
+        out = "QUEUE ["
         if not self.is_empty():
             node = self._head
             out = out + str(node.value)
             node = node.next
             while node:
-                out = out + ' -> ' + str(node.value)
+                out = out + " -> " + str(node.value)
                 node = node.next
-        return out + ']'
+        return out + "]"
 
     def is_empty(self) -> bool:
         """
@@ -67,23 +68,23 @@ class Queue:
         Adds a new value to the end of the queue
         """
         node = SLNode(value)
-        if self._head is None: #If queue is empty, new node is head and tail
+        if self._head is None:  # If queue is empty, new node is head and tail
             self._head = node
             self._tail = node
             return
-        self._tail.next = node #Make old tail point to new node
-        self._tail = node #Make new node the new tail
+        self._tail.next = node  # Make old tail point to new node
+        self._tail = node  # Make new node the new tail
 
     def dequeue(self) -> object:
         """
         Removes and returns the value from the beginning of the queue
         """
-        if self._head is None: #If queue is empty raise exception
+        if self._head is None:  # If queue is empty raise exception
             raise QueueException
-        
+
         val = self._head.value
-        self._head = self._head.next #Cut old head out of the list
-        if self._head is None: #If queue is now empty tail must be set to None
+        self._head = self._head.next  # Cut old head out of the list
+        if self._head is None:  # If queue is now empty tail must be set to None
             self._tail = None
         return val
 
@@ -119,10 +120,10 @@ if __name__ == "__main__":
         except Exception as e:
             print("No elements in queue", type(e))
 
-    print('\n#front example 1')
+    print("\n#front example 1")
     q = Queue()
     print(q)
-    for value in ['A', 'B', 'C', 'D']:
+    for value in ["A", "B", "C", "D"]:
         try:
             print(q.front())
         except Exception as e:
