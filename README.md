@@ -13,19 +13,19 @@ CS 261 is a comprehensive course covering essential data structures and algorith
 ## Assignments
 
 ### [Assignment 1: Python Review and Static Array](./static_array/)
-Implementation of fundamental algorithms using static arrays including sorting algorithms (bubble sort, counting sort), array manipulation functions, and Python programming fundamentals.
+An implementation of various algorithms and functions using a static array. This assignment serves as a warm-up for Python skills and introduces fundamental array operations.
 
-### [Assignment 2: Dynamic Array and ADT Implementation](./dynamic_array_and_set/)
-Implementation of a dynamic array data structure with automatic resizing and a Bag ADT (Abstract Data Type) built on top of the dynamic array.
+### [Assignment 2: Dynamic Array and Bag Implementation](./dynamic_array_and_set/)
+An implementation of a dynamic array with automatic resizing and an abstract bag structure built on top of the dynamic array.
 
 ### [Assignment 3: Queue, Stack, and Singly Linked List](./queue_stack_and_linked_list/)
-Comprehensive implementation of fundamental linear data structures using both array-based and linked-list approaches.
+An implementation of fundamental linear data structures: Queue, Stack, and Singly Linked List (SLL). A queue and stack are implemented using both static arrays and singly linked lists to demonstrate different approaches.
 
 ### [Assignment 4: Binary Search Tree and AVL Tree](./bst_and_avl/)
-Implementation of binary search trees and self-balancing AVL trees with complete traversal algorithms and balancing mechanisms.
+An implementation of a Binary Search Tree (BST) and an AVL Tree (self-balancing BST) with traversal algorithms and balancing mechanisms.
 
 ### [Assignment 5: Hash Maps - Separate Chaining and Open Addressing](./hash_maps/)
-Implementation of hash map data structures using two different collision resolution strategies: separate chaining and open addressing with quadratic probing.
+An implementation of hash maps using two different collision resolution strategies: Separate Chaining and Open Addressing with Quadratic Probing.
 
 ### [Assignment 6: Min Heap Implementation](./min_heap/)
-Implementation of a min heap data structure with heap sort algorithm, built on dynamic arrays for efficient priority queue operations.
+An implementation of a Min Heap using a dynamic array as the underlying storage. The heap maintains the min-heap property where the parent node is always smaller than or equal to its children.

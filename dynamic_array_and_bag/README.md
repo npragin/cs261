@@ -1,4 +1,4 @@
-# Assignment 2: Dynamic Array and ADT Implementation
+# Assignment 2: Dynamic Array and Bag Implementation
 
 An implementation of a dynamic array with automatic resizing and an abstract bag structure built on top of the dynamic array.
 
